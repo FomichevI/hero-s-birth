@@ -30,30 +30,29 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (ArrowControl == false && Input.GetAxisRaw("HorizontalP1") != 0)
+        if (ArrowControl == false && Input.GetAxis("HorizontalP1") != 0)
         {
-            movement.x = Input.GetAxisRaw("HorizontalP1");
+            movement.x = Input.GetAxis("HorizontalP1");
         }
 
-        if (ArrowControl == false && Input.GetAxisRaw("VerticalP1") != 0)
+        if (ArrowControl == false && Input.GetAxis("VerticalP1") != 0)
         {
             movement.y = Input.GetAxis("VerticalP1");
 
         }
 
 
-        if (ArrowControl == true && Input.GetAxisRaw("HorizontalP2") != 0)
+        if (ArrowControl == true && Input.GetAxis("HorizontalP2") != 0)
         {
-            movement.x = Input.GetAxisRaw("HorizontalP2");
+            movement.x = Input.GetAxis("HorizontalP2");
         }
 
-        if (ArrowControl == true && Input.GetAxisRaw("VerticalP2") != 0)
+        if (ArrowControl == true && Input.GetAxis("VerticalP2") != 0)
         {
             movement.y = Input.GetAxis("VerticalP2");
 
         }
 
-        Debug.Log(movement);
     }
 
     private void FixedUpdate()
