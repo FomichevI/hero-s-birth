@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody theRB;
 
-    public float forwardAccel =8f, reverseAccel =4f, maxSpeed =50f, turnStrength = 180;
+    public float moveSpeed = 5f;
 
-    public float speedInput, turnInput;
+    public Rigidbody2D rb;
+    
+    private bool ArrowControl; //Переменная для определения типа управления
 
-     private bool ArrowControl; //Переменная для определения типа управления
+    private Vector2 movement;
 
     // Start is called before the first frame update
     void Start()
@@ -25,36 +26,40 @@ public class PlayerController : MonoBehaviour
             ArrowControl = true;
         }
 
-        theRB.transform.parent = null;
     }
 
     private void Update()
     {
-        //speedInput = 0f;
-        if (Input.GetKeyDown(KeyCode.W) && ArrowControl == false)
+        if (ArrowControl == false && Input.GetAxisRaw("HorizontalP1") != 0)
         {
-            speedInput = Input.GetAxis("VerticalP1") * forwardAccel * 1000f;
-        } else if (Input.GetAxis("VerticalP1") < 0 && ArrowControl == false)
+            movement.x = Input.GetAxisRaw("HorizontalP1");
+        }
+
+        if (ArrowControl == false && Input.GetAxisRaw("VerticalP1") != 0)
         {
-            speedInput = Input.GetAxis("Vertical") * reverseAccel * 1000f;
+            movement.y = Input.GetAxis("VerticalP1");
+
         }
 
 
-        transform.position = theRB.transform.position;
-        
-       // Debug.Log("SpeedInput: " + speedInput);
-        if (Mathf.Abs(speedInput) > 0)
+        if (ArrowControl == true && Input.GetAxisRaw("HorizontalP2") != 0)
         {
-            theRB.AddForce(transform.forward * forwardAccel * speedInput);
+            movement.x = Input.GetAxisRaw("HorizontalP2");
         }
 
+        if (ArrowControl == true && Input.GetAxisRaw("VerticalP2") != 0)
+        {
+            movement.y = Input.GetAxis("VerticalP2");
+
+        }
+
+        Debug.Log(movement);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-       
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
-   
 }
+
