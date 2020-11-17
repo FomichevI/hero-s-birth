@@ -4,55 +4,63 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
-    public float rotationSpeed;
-    public Transform zoidTransform;
-    public Transform headTransform;
+
+    public float moveSpeed = 5f;
+
+    public Rigidbody2D rb;
 
     private bool ArrowControl; //Переменная для определения типа управления
-    private Vector3 position;
-    private float rotationZ;
+
+    private Vector2 movement;
+
     // Start is called before the first frame update
     void Start()
     {
-        ArrowControl = true;
-        position = transform.position;
-        rotationZ = transform.rotation.z;
+        var parentName = transform.name; //Получаем родительское имя
+
+        if (parentName == "P1") //Если это игрок1 то управление не на стрелках
+        {
+            ArrowControl = false;
+        }
+        else
+        {
+            ArrowControl = true;
+        }
+
     }
-    
 
-
-
-        private void Update()
+    private void Update()
     {
-        if (ArrowControl == false && Input.GetAxis("HorizontalP1") != 0)
+        if (ArrowControl == false && Input.GetAxisRaw("HorizontalP1") != 0)
         {
-            rotationZ -= Input.GetAxis("HorizontalP1") * rotationSpeed;
+            movement.x = Input.GetAxisRaw("HorizontalP1");
         }
-        if (ArrowControl == false && Input.GetAxis("VerticalP1") != 0)
+
+        if (ArrowControl == false && Input.GetAxisRaw("VerticalP1") != 0)
         {
-            if (Input.GetAxis("VerticalP1") < 0)
-                position -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP1") * moveSpeed / 20;
-            else
-                position -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP1") * moveSpeed / 10;
+            movement.y = Input.GetAxis("VerticalP1");
+
         }
-        if (ArrowControl == true && Input.GetAxis("HorizontalP2") != 0)
+
+
+        if (ArrowControl == true && Input.GetAxisRaw("HorizontalP2") != 0)
         {
-            rotationZ -= Input.GetAxis("HorizontalP2") * rotationSpeed;
+            movement.x = Input.GetAxisRaw("HorizontalP2");
         }
-        if (ArrowControl == true && Input.GetAxis("VerticalP2") != 0)
+
+        if (ArrowControl == true && Input.GetAxisRaw("VerticalP2") != 0)
         {
-            if (Input.GetAxis("VerticalP2") < 0)
-                position -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP2") * moveSpeed / 20;
-            else
-                position -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP2") * moveSpeed / 10;
+            movement.y = Input.GetAxis("VerticalP2");
+
         }
+
+        Debug.Log(movement);
     }
 
     private void FixedUpdate()
-{
-    transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-    transform.position = position;
-}
+    {
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
 }
 
