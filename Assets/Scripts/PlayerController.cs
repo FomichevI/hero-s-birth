@@ -16,7 +16,11 @@ public class PlayerController : MonoBehaviour
     private bool ArrowControl; //Переменная для определения типа управления
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Rigidbody2D rb;
+=======
+    private Vector3 position;
+>>>>>>> parent of ceb2939... Добавлена инерция движения
 =======
     private Vector3 position;
 >>>>>>> parent of ceb2939... Добавлена инерция движения
