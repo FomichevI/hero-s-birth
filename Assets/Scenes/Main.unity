@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 461282371}
   - component: {fileID: 461282370}
   m_Layer: 0
-  m_Name: MainCamera
+  m_Name: Camera (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,8 +175,13 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 91.2
+<<<<<<< HEAD
   orthographic: 1
   orthographic size: 4.22
+=======
+  orthographic: 0
+  orthographic size: 5
+>>>>>>> parent of ceb2939... Добавлена инерция движения
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -200,7 +205,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461282369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 0, y: 0, z: -20.32}
+=======
+  m_LocalPosition: {x: 0, y: 0, z: -2}
+>>>>>>> parent of ceb2939... Добавлена инерция движения
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -446,6 +455,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1141467716
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,6 +637,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of ceb2939... Добавлена инерция движения
 --- !u!1 &1298355586
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +773,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1999029268}
   - component: {fileID: 1999029269}
+<<<<<<< HEAD
   - component: {fileID: 1999029271}
+=======
+>>>>>>> parent of ceb2939... Добавлена инерция движения
   - component: {fileID: 1999029270}
   m_Layer: 0
   m_Name: P1
@@ -778,8 +793,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999029267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 3.05, y: 3.42, z: 2}
+=======
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+>>>>>>> parent of ceb2939... Добавлена инерция движения
   m_Children:
   - {fileID: 554621984}
   - {fileID: 1298355587}
@@ -798,6 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8075c7cf8c24ca64b9eeeff2203b0b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   moveSpeed: 3.5
   rotationSpeed: 3.5
   zoidTransform: {fileID: 1999029268}
@@ -805,11 +826,20 @@ MonoBehaviour:
   rb: {fileID: 1999029271}
 --- !u!70 &1999029270
 CapsuleCollider2D:
+=======
+  moveSpeed: 3
+  rotationSpeed: 1.5
+  zoidTransform: {fileID: 0}
+  headTransform: {fileID: 1298355587}
+--- !u!54 &1999029270
+Rigidbody:
+>>>>>>> parent of ceb2939... Добавлена инерция движения
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999029267}
+<<<<<<< HEAD
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -840,3 +870,14 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+=======
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 98
+  m_CollisionDetection: 0
+>>>>>>> parent of ceb2939... Добавлена инерция движения
