@@ -15,11 +15,15 @@ public class PlayerController : MonoBehaviour
 
     public Transform headTransform;
 
+    public GameManager gameManager;
+
     private bool ArrowControl; //Переменная для определения типа управления
 
     private Vector2 movement;
 
     private float rotationZ;
+
+    private bool[] checkPoints;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +38,8 @@ public class PlayerController : MonoBehaviour
         {
             ArrowControl = true;
         }
-
+        checkPoints = new bool[3];
+        rotationZ = transform.rotation.eulerAngles.z;
     }
 
     private void FixedUpdate()
@@ -83,6 +88,60 @@ public class PlayerController : MonoBehaviour
 
             rb.velocity -= movement;
         }              
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "Start1" && !ArrowControl && checkPoints[2])
+        {            
+            ClearCheckPoints(); // Приравниваем все чекпоинты к false   
+            gameManager.CompleteLapP1();
+        }
+
+        if (other.gameObject.name == "Start2" && ArrowControl && checkPoints[2])
+        {
+            ClearCheckPoints(); // Приравниваем все чекпоинты к false   
+            gameManager.CompleteLapP2();
+        }
+
+        if (other.gameObject.name == "CheckPoint1") // Для второго игрока поледовательность чекпоинтов следующая: 2-3-1-финиш
+        {
+            if (!ArrowControl)
+                CheckPointComplete(0);
+            else
+                CheckPointComplete(2);
+        }
+
+        if (other.gameObject.name == "CheckPoint2")
+        {
+            if (!ArrowControl)
+                CheckPointComplete(1);
+            else
+                CheckPointComplete(0);
+        }
+
+        if (other.gameObject.name == "CheckPoint3")
+        {
+            if (!ArrowControl)
+                CheckPointComplete(2);
+            else
+                CheckPointComplete(1);
+        }
+    }
+
+    private void CheckPointComplete(int checkPointNumber)
+    {
+        if (checkPointNumber == 0)
+            checkPoints[checkPointNumber] = true;
+        else if (checkPoints[checkPointNumber-1])
+            checkPoints[checkPointNumber] = true;
+    }
+
+    private void ClearCheckPoints()
+    {
+        for (int i = 0; i < checkPoints.Length; i++)
+            checkPoints[i] = false;
     }
 }
 
