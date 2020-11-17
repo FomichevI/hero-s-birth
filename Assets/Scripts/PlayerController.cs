@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private bool[] checkPoints;
 
+    private int lastCheckpoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
         }
         checkPoints = new bool[3];
         rotationZ = transform.rotation.eulerAngles.z;
+        lastCheckpoint = checkPoints.Length - 1 ; // В начале игры выставляем индикатор последнего чекпоинта
     }
 
     private void FixedUpdate()
@@ -136,6 +139,19 @@ public class PlayerController : MonoBehaviour
             checkPoints[checkPointNumber] = true;
         else if (checkPoints[checkPointNumber-1])
             checkPoints[checkPointNumber] = true;
+
+        // Проверка на направление движения
+
+        if(checkPointNumber == lastCheckpoint)
+        {
+            if (checkPointNumber == 0)
+                lastCheckpoint = checkPoints.Length - 1;
+            else
+                lastCheckpoint = checkPointNumber - 1;
+            Debug.Log(transform.name + "Едет в другую сторону");
+        }
+        else
+            lastCheckpoint = checkPointNumber;
     }
 
     private void ClearCheckPoints()
