@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform headTransform;
 
-    public Rigidbody rb;
+    public Rigidbody2D rb;
 
     private bool ArrowControl; //Переменная для определения типа управления 
 
