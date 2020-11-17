@@ -802,6 +802,7 @@ MonoBehaviour:
   rotationSpeed: 3.5
   zoidTransform: {fileID: 1999029268}
   headTransform: {fileID: 1298355587}
+  vector2: {x: 0, y: 0}
   rb: {fileID: 1999029271}
 --- !u!70 &1999029270
 CapsuleCollider2D:

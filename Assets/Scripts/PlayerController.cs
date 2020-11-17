@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform headTransform;
 
+    public Vector2 vector2;
+
     public Rigidbody2D rb;
 
     private bool ArrowControl; //Переменная для определения типа управления 
@@ -45,10 +47,13 @@ public class PlayerController : MonoBehaviour
 
         if (ArrowControl == false && Input.GetAxis("VerticalP1") != 0)
         {
-            if(Input.GetAxis("VerticalP1")<0)
-                rb.velocity -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP1") * moveSpeed / 2; //Скорость движения назад в 2 раза меньше, чем вперед
+            Vector2 vec = new Vector2();
+
+            if (Input.GetAxis("VerticalP1") < 0)          
+                vec.y  = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP1") * moveSpeed / 2; //Скорость движения назад в 2 раза меньше, чем вперед                           
             else
-                rb.velocity -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP1") * moveSpeed;
+                vec.y = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP1") * moveSpeed;
+            rb.velocity -= vec;
         }             
 
         if (ArrowControl == true && Input.GetAxis("HorizontalP2") != 0)
@@ -59,10 +64,10 @@ public class PlayerController : MonoBehaviour
 
         if (ArrowControl == true && Input.GetAxis("VerticalP2") != 0)
         {
-            if (Input.GetAxis("VerticalP2") < 0)
-                rb.velocity -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP2") * moveSpeed / 2;
-            else
-                rb.velocity -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP2") * moveSpeed;
+            //if (Input.GetAxis("VerticalP2") < 0)
+            //    rb.velocity -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP2") * moveSpeed / 2;
+            //else
+            //    rb.velocity -= (transform.position - headTransform.position) * Input.GetAxis("VerticalP2") * moveSpeed;
         }
 
 
