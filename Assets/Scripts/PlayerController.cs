@@ -9,13 +9,11 @@ public class PlayerController : MonoBehaviour
 
     public float rotationSpeed = 1;
 
-    public Rigidbody2D rb;
-
-    public Transform zoidTransform;
-
-    public Transform headTransform;
-
     public GameManager gameManager;
+
+    private Rigidbody2D rb;    
+
+    private Transform headTransform;    
 
     private bool ArrowControl; //Переменная для определения типа управления
 
@@ -30,6 +28,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        headTransform = transform.FindChild("Head").GetComponent<Transform>();
+
         var parentName = transform.name; //Получаем родительское имя
 
         if (parentName == "P1") //Если это игрок1 то управление не на стрелках
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
         checkPoints = new bool[3];
         rotationZ = transform.rotation.eulerAngles.z;
-        lastCheckpoint = checkPoints.Length - 1 ; // В начале игры выставляем индикатор последнего чекпоинта
+        lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта
     }
 
     private void FixedUpdate()
@@ -57,12 +58,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetAxisRaw("VerticalP1") < 0)
             {
-                movement.y = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP1") * moveSpeed/2; // скорость движения назад в 2 раза меньше 
-                movement.x = (transform.position.x - headTransform.position.x) * Input.GetAxis("VerticalP1") * moveSpeed/2;
+                movement.y = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP1") * moveSpeed / 2; // скорость движения назад в 2 раза меньше 
+                movement.x = (transform.position.x - headTransform.position.x) * Input.GetAxis("VerticalP1") * moveSpeed / 2;
             }
             else
             {
-                movement.y = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP1") * moveSpeed; 
+                movement.y = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP1") * moveSpeed;
                 movement.x = (transform.position.x - headTransform.position.x) * Input.GetAxis("VerticalP1") * moveSpeed;
             }
 
@@ -90,14 +91,14 @@ public class PlayerController : MonoBehaviour
             }
 
             rb.velocity -= movement;
-        }              
+        }
     }
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "Start1" && !ArrowControl && checkPoints[2])
-        {            
+        {
             ClearCheckPoints(); // Приравниваем все чекпоинты к false   
             gameManager.CompleteLapP1();
         }
@@ -137,12 +138,12 @@ public class PlayerController : MonoBehaviour
     {
         if (checkPointNumber == 0)
             checkPoints[checkPointNumber] = true;
-        else if (checkPoints[checkPointNumber-1])
+        else if (checkPoints[checkPointNumber - 1])
             checkPoints[checkPointNumber] = true;
 
         // Проверка на направление движения
 
-        if(checkPointNumber == lastCheckpoint)
+        if (checkPointNumber == lastCheckpoint)
         {
             if (checkPointNumber == 0)
                 lastCheckpoint = checkPoints.Length - 1;
