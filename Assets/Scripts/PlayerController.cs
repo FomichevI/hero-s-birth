@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
 
     public GameManager gameManager;
 
-    private Rigidbody2D rb;    
+    private Rigidbody2D rb;
 
-    private Transform headTransform;    
+    private Transform headTransform;
 
     private bool ArrowControl; //Переменная для определения типа управления
 
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        headTransform = transform.FindChild("Head").GetComponent<Transform>();
+        headTransform = transform.Find("Head").GetComponent<Transform>();
         originalMoveSpeed = moveSpeed;
         checkPoints = new bool[3];
 
@@ -51,8 +51,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             ArrowControl = true;
-            lastCheckpoint = 0 ; // В начале игры выставляем индикатор последнего чекпоинта   
-        }        
+            lastCheckpoint = 0; // В начале игры выставляем индикатор последнего чекпоинта   
+        }
         rotationZ = transform.rotation.eulerAngles.z;
     }
 
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
                 movement.y = (transform.position.y - headTransform.position.y) * Input.GetAxis("VerticalP2") * moveSpeed;
                 movement.x = (transform.position.x - headTransform.position.x) * Input.GetAxis("VerticalP2") * moveSpeed;
             }
-            rb.velocity -= movement;         
+            rb.velocity -= movement;
         }
 
         if (underEffect)
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 moveSpeed = originalMoveSpeed;
-                underEffect = false;               
+                underEffect = false;
             }
         }
     }
@@ -198,4 +198,3 @@ public class PlayerController : MonoBehaviour
         currentSkill = new SkillsController(tag);
     }
 }
-
