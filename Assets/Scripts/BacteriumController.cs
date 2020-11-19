@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BacteriumController : MonoBehaviour
+public class BacteriumController : Boost
 {   
-    public Transform finishTransform;
+    private Transform finishTransform;
 
     public float moveSpeed;
 
     public float maxRadius;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        lifeTime = 10;
     }
 
     private void FixedUpdate()
@@ -21,5 +20,10 @@ public class BacteriumController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, finishTransform.position, moveSpeed);
         if ((transform.position - finishTransform.position).magnitude<= maxRadius)
             Destroy(gameObject);
+    }
+
+    public void SetFinishTransform(Transform t)
+    {
+        finishTransform = t;
     }
 }
