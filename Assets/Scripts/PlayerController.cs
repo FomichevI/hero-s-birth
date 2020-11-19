@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
 
     public GameManager gameManager;
 
+    public SkillsController skillsController;
+
+    public GameObject effect; // объект со Sprite Renderer
+
     private Rigidbody2D rb;
 
     private Transform headTransform;
@@ -29,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private float effectDuration;
 
-    private SkillsController currentSkill;
+    private string currentSkillTag;
 
     private float originalMoveSpeed;
 
@@ -46,14 +50,13 @@ public class PlayerController : MonoBehaviour
         if (parentName == "P1") //Если это игрок1 то управление не на стрелках
         {
             ArrowControl = false;
-            lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта   
         }
         else
         {
             ArrowControl = true;
-            lastCheckpoint = 0; // В начале игры выставляем индикатор последнего чекпоинта   
-        }
+        }        
         rotationZ = transform.rotation.eulerAngles.z;
+        lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта         
     }
 
     private void FixedUpdate()
@@ -110,10 +113,12 @@ public class PlayerController : MonoBehaviour
             {
                 moveSpeed = originalMoveSpeed;
                 underEffect = false;
+                effect.SetActive(false);
             }
-        }
-    }
+        }      
 
+    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -186,15 +191,18 @@ public class PlayerController : MonoBehaviour
             checkPoints[i] = false;
     }
 
-    public void AddEffect(float duration, float speedChange) // Добавление эффекта ускорения или замедления на персонажа
+    public void AddEffect(float duration, float speedChange, Sprite sprite) // Добавление эффекта ускорения или замедления на персонажа
     {
         effectDuration = duration;
         underEffect = true;
         moveSpeed = originalMoveSpeed + speedChange;
+        effect.SetActive(true);
+        effect.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    public void AddSkill(string tag) // Добавление скила
+    public void AddSkill(string tag) // Добавление скилла
     {
-        currentSkill = new SkillsController(tag);
+        currentSkillTag = tag;
     }
 }
+

@@ -9,7 +9,10 @@ public class Boost : MonoBehaviour
     public float durationEffect;
 
     public float lifeTime;
-      
+
+    public Sprite speedupSprite;
+
+    public Sprite slowdownSprite;
 
     private void FixedUpdate()
     {
@@ -21,11 +24,17 @@ public class Boost : MonoBehaviour
 
     public void UseBoost(PlayerController pc)
     {
-        if (gameObject.tag == "Bacterium" || gameObject.tag == "Mucus")
+        if (gameObject.tag == "Bacterium")
         {
-            pc.AddEffect(durationEffect, speedChange);
+            pc.AddEffect(durationEffect, speedChange, slowdownSprite);
             Destroy(gameObject);
         }
+        else if (gameObject.tag == "Mucus")
+        {
+            pc.AddEffect(durationEffect, speedChange, speedupSprite);
+            Destroy(gameObject);
+        }
+
         else if (gameObject.tag == "")
         {
 
