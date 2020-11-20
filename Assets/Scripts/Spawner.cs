@@ -10,10 +10,6 @@ public class Spawner : MonoBehaviour
 
     [Header("Для точек с пометкой 2")] public Transform[] bacteriumSpawnPoints2;    
 
-    public GameObject bacteriumPrefab;
-
-    public GameObject mucusPrefab;
-
     public float spawnBacteriumDelay;
 
     public float spawnBuffsDelay;
@@ -53,13 +49,13 @@ public class Spawner : MonoBehaviour
         if (rand == 0)
         {
             rand = Random.Range(0, bacteriumSpawnPoints1.Length);
-            GameObject bact = Instantiate(bacteriumPrefab, bacteriumSpawnPoints1[rand]);
+            GameObject bact = Instantiate(Resources.Load("Prefabs/Bacterium", typeof(GameObject)) , bacteriumSpawnPoints1[rand]) as GameObject;
             bact.GetComponent<BacteriumController>().SetFinishTransform(bacteriumSpawnPoints2[rand]);
         }
         else
         {
             rand = Random.Range(0, bacteriumSpawnPoints1.Length);
-            GameObject bact = Instantiate(bacteriumPrefab, bacteriumSpawnPoints2[rand]);
+            GameObject bact = Instantiate(Resources.Load("Prefabs/Bacterium", typeof(GameObject)), bacteriumSpawnPoints2[rand]) as GameObject;
             bact.GetComponent<BacteriumController>().SetFinishTransform(bacteriumSpawnPoints1[rand]);
         }
     }
@@ -67,7 +63,7 @@ public class Spawner : MonoBehaviour
     private void SpawnMucus()
     {
         int rand = Random.Range(0, baffSpawnPoints.Length);
-        GameObject mucus = Instantiate(mucusPrefab, baffSpawnPoints[rand]);
+        GameObject mucus = Instantiate(Resources.Load("Prefabs/Mucus", typeof(GameObject)), baffSpawnPoints[rand]) as GameObject;
     }
 
 }
