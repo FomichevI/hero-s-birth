@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chain : MonoBehaviour
+public class ChainSkill : Skill
 {
     public float rotationSpeed;
-    public float durationSkill;
-    public float durationEffect;
-    public float speedChange;
+    
 
     private Vector3 rotation;
 
@@ -25,14 +23,5 @@ public class Chain : MonoBehaviour
         }
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "P1" || collision.gameObject.name == "P2")
-        {
-            collision.gameObject.GetComponentInParent<PlayerController>().AddEffect(durationEffect, speedChange);
-            Destroy(gameObject);
-        }
-    }
 
 }

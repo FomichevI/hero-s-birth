@@ -46,12 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedChange: -0.3
-  durationEffect: 2
   lifeTime: 0
-  speedupSprite: {fileID: 21300000, guid: 65bb5714fa425d347a9f99c063a2b4e8, type: 3}
-  slowdownSprite: {fileID: 21300000, guid: 959866e23c28aaf4d837cc88f725254d, type: 3}
-  moveSpeed: 0.1
+  moveSpeed: 0.3
   maxRadius: 0.5
+  durationEffect: 2
+  slowdownEffect: {fileID: 21300000, guid: 959866e23c28aaf4d837cc88f725254d, type: 3}
 --- !u!212 &7990064760799076731
 SpriteRenderer:
   m_ObjectHideFlags: 0

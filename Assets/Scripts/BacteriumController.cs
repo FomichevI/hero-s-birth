@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BacteriumController : Boost
-{   
-    private Transform finishTransform;
-
+{      
     public float moveSpeed;
-
     public float maxRadius;
+    public float durationEffect;
+    public Sprite slowdownEffect;
+
+    private Transform finishTransform;
 
     private void Start()
     {
@@ -25,5 +26,11 @@ public class BacteriumController : Boost
     public void SetFinishTransform(Transform t)
     {
         finishTransform = t;
+    }
+
+    public void UseBoost(PlayerController pc)
+    {
+        pc.AddEffect(durationEffect, speedChange, slowdownEffect);
+        Destroy(gameObject);
     }
 }

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2376889079547388970}
-  - component: {fileID: 5970330589919905067}
   - component: {fileID: 9103673776851167599}
   - component: {fileID: 6582161649523755269}
+  - component: {fileID: 8269609075951880462}
   m_Layer: 10
   m_Name: Mucus
   m_TagString: Mucus
@@ -33,23 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5970330589919905067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8425610506155482957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 863818b9c4e1de143a986832b31e1c48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedChange: 0.3
-  durationEffect: 3
-  lifeTime: 5
-  speedupSprite: {fileID: 21300000, guid: 65bb5714fa425d347a9f99c063a2b4e8, type: 3}
-  slowdownSprite: {fileID: 21300000, guid: 959866e23c28aaf4d837cc88f725254d, type: 3}
 --- !u!212 &9103673776851167599
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -685,3 +668,19 @@ PolygonCollider2D:
       - {x: 3.0360787, y: -11.907556}
       - {x: 3.2032022, y: -11.837921}
       - {x: 3.3981798, y: -11.712579}
+--- !u!114 &8269609075951880462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8425610506155482957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe968c9983524e499d1fbc4ba836e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedChange: 0.3
+  lifeTime: 3
+  durationEffect: 3
+  speedupEffect: {fileID: 21300000, guid: 65bb5714fa425d347a9f99c063a2b4e8, type: 3}

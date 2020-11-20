@@ -140,7 +140,10 @@ public class PlayerController : MonoBehaviour
     {        
         if (other.gameObject.tag == "Bacterium" || other.gameObject.tag == "Mucus")
         {
-            other.gameObject.GetComponent<Boost>().UseBoost(this);
+            if (other.gameObject.GetComponent<BoostWithEffect>())
+                other.gameObject.GetComponent<BoostWithEffect>().UseBoost(this);
+            else if (other.gameObject.GetComponent<BacteriumController>())
+                other.gameObject.GetComponent<BacteriumController>().UseBoost(this);
         }
         else if(other.gameObject.tag == "SkillBox")
         {
@@ -200,8 +203,7 @@ public class PlayerController : MonoBehaviour
     {
         effectDuration = duration;
         underEffect = true;
-        moveSpeed = originalMoveSpeed + speedChange;
-        effect.SetActive(true);
+        moveSpeed = originalMoveSpeed + speedChange;        
         GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 
