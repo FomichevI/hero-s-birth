@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bacterium
   - Mucus
+  - SkillBox
   layers:
   - Default
   - TransparentFX

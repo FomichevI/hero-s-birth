@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillsController : MonoBehaviour
-{
-    private string tag;
+{     
 
-    public SkillsController(string t)
+
+
+
+    public void SetSkill(string skillTag, PlayerController playerController) // Метод для определения скилла, который подобрал персонаж
     {
-        tag = t;
+        if (skillTag.Contains("ChainBox"))
+        {
+            playerController.AddSkill("Chain", Resources.Load("Sprites/Biker", typeof(Sprite)) as Sprite);
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void UseSkill(string tag, Transform player)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (tag == "Chain")
+        {
+            GameObject bact = Instantiate(Resources.Load("Prefabs/Chain", typeof(GameObject)), player) as GameObject;
+        }
     }
 }

@@ -38,7 +38,12 @@ public class Spawner : MonoBehaviour
             timeToSpawnBuff -= 0.02f;
         else
         {
-            SpawnMucus();
+            int rand = Random.Range(0, 2);
+            if (rand == 0)            
+                SpawnMucus();
+            else if (rand == 1)
+                SpawnChainBox();
+
             timeToSpawnBuff = spawnBacteriumDelay;
         }
     }
@@ -64,6 +69,12 @@ public class Spawner : MonoBehaviour
     {
         int rand = Random.Range(0, baffSpawnPoints.Length);
         GameObject mucus = Instantiate(Resources.Load("Prefabs/Mucus", typeof(GameObject)), baffSpawnPoints[rand]) as GameObject;
+    }
+
+    private void SpawnChainBox()
+    {
+        int rand = Random.Range(0, baffSpawnPoints.Length);
+        GameObject mucus = Instantiate(Resources.Load("Prefabs/ChainBox", typeof(GameObject)), baffSpawnPoints[rand]) as GameObject;
     }
 
 }

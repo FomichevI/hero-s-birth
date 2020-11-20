@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
             ArrowControl = true;
         }        
         rotationZ = transform.rotation.eulerAngles.z;
-        lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта         
+        lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта 
+        currentSkillTag = "Chain";
     }
 
     private void FixedUpdate()
@@ -105,6 +106,14 @@ public class PlayerController : MonoBehaviour
             rb.velocity -= movement;
         }
 
+        if(ArrowControl == false && Input.GetKey(KeyCode.Q) && currentSkillTag != null) // Использование скилла первым игроком
+        {
+            skillsController.UseSkill(currentSkillTag, transform);
+            currentSkillTag = null;
+            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Pers", typeof(Sprite)) as Sprite;
+        }
+
+
         if (underEffect)
         {
             if (effectDuration > 0)
@@ -121,58 +130,38 @@ public class PlayerController : MonoBehaviour
     
 
     private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.name == "Start1" && !ArrowControl && checkPoints[2])
-        {
-            ClearCheckPoints(); // Приравниваем все чекпоинты к false   
-            gameManager.CompleteLapP1();
-        }
-
-        else if (other.gameObject.name == "Start2" && ArrowControl && checkPoints[2])
-        {
-            ClearCheckPoints(); // Приравниваем все чекпоинты к false   
-            gameManager.CompleteLapP2();
-        }
-
-        else if (other.gameObject.name == "CheckPoint1") // Для второго игрока поледовательность чекпоинтов следующая: 2-3-1-финиш
-        {
-            if (!ArrowControl)
-                CheckPointComplete(0);
-            else
-                CheckPointComplete(2);
-        }
-
-        else if (other.gameObject.name == "CheckPoint2")
-        {
-            if (!ArrowControl)
-                CheckPointComplete(1);
-            else
-                CheckPointComplete(0);
-        }
-
-        else if (other.gameObject.name == "CheckPoint3")
-        {
-            if (!ArrowControl)
-                CheckPointComplete(2);
-            else
-                CheckPointComplete(1);
-        }
-
-        else if (other.gameObject.tag == "Bacterium" || other.gameObject.tag == "Mucus")
+    {        
+        if (other.gameObject.tag == "Bacterium" || other.gameObject.tag == "Mucus")
         {
             other.gameObject.GetComponent<Boost>().UseBoost(this);
         }
+        else if(other.gameObject.tag == "SkillBox")
+        {
+            skillsController.SetSkill(other.gameObject.name, this);
+            Destroy(other.gameObject);
+        }
     }
 
-    private void CheckPointComplete(int checkPointNumber)
+    public void FinishComplete()
     {
-        if (checkPointNumber == 0)
+        if (checkPoints[2])
+        {       
+            if (!ArrowControl)
+                gameManager.CompleteLapP1();
+            else
+                gameManager.CompleteLapP2();
+            ClearCheckPoints(); // Приравниваем все чекпоинты к false  
+        }         
+    }
+
+    public void CheckPointComplete(int checkPointNumber)
+    {
+        if (checkPointNumber == 0)        
             checkPoints[checkPointNumber] = true;
         else if (checkPoints[checkPointNumber - 1])
-            checkPoints[checkPointNumber] = true;
+            checkPoints[checkPointNumber] = true;    
 
         // Проверка на направление движения
-
         if (checkPointNumber == lastCheckpoint)
         {
             if (checkPointNumber == 0)
@@ -200,9 +189,10 @@ public class PlayerController : MonoBehaviour
         effect.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    public void AddSkill(string tag) // Добавление скилла
+    public void AddSkill(string tag, Sprite playerSprite) // Добавление скилла
     {
         currentSkillTag = tag;
+        GetComponentInChildren<SpriteRenderer>().sprite = playerSprite;
     }
 }
 
