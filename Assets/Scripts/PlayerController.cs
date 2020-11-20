@@ -62,13 +62,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ArrowControl == false && Input.GetAxisRaw("HorizontalP1") != 0)
+        if (!ArrowControl && Input.GetAxisRaw("HorizontalP1") != 0)
         {
             rotationZ -= Input.GetAxis("HorizontalP1") * rotationSpeed;
             rb.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
         }
 
-        if (ArrowControl == false && Input.GetAxisRaw("VerticalP1") != 0)
+        if (!ArrowControl && Input.GetAxisRaw("VerticalP1") != 0)
         {
             if (Input.GetAxisRaw("VerticalP1") < 0)
             {
@@ -85,13 +85,13 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (ArrowControl == true && Input.GetAxisRaw("HorizontalP2") != 0)
+        if (ArrowControl && Input.GetAxisRaw("HorizontalP2") != 0)
         {
             rotationZ -= Input.GetAxis("HorizontalP2") * rotationSpeed;
             rb.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
         }
 
-        if (ArrowControl == true && Input.GetAxisRaw("VerticalP2") != 0)
+        if (ArrowControl && Input.GetAxisRaw("VerticalP2") != 0)
         {
             if (Input.GetAxisRaw("VerticalP2") < 0)
             {
@@ -106,13 +106,19 @@ public class PlayerController : MonoBehaviour
             rb.velocity -= movement;
         }
 
-        if(ArrowControl == false && Input.GetKey(KeyCode.Q) && currentSkillTag != null) // Использование скилла первым игроком
+        if(!ArrowControl && Input.GetKey(KeyCode.Q) && currentSkillTag != null) // Использование скилла первым игроком
         {
             skillsController.UseSkill(currentSkillTag, transform);
             currentSkillTag = null;
             GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Pers", typeof(Sprite)) as Sprite;
         }
 
+        if (ArrowControl && Input.GetKey(KeyCode.RightControl) && currentSkillTag != null) // Использование скилла вторым игроком
+        {
+            skillsController.UseSkill(currentSkillTag, transform);
+            currentSkillTag = null;
+            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Pers", typeof(Sprite)) as Sprite;
+        }
 
         if (underEffect)
         {
@@ -123,6 +129,7 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = originalMoveSpeed;
                 underEffect = false;
                 effect.SetActive(false);
+                GetComponentInChildren<SpriteRenderer>().color = Color.white;
             }
         }      
 
@@ -187,6 +194,15 @@ public class PlayerController : MonoBehaviour
         moveSpeed = originalMoveSpeed + speedChange;
         effect.SetActive(true);
         effect.GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
+    public void AddEffect(float duration, float speedChange)
+    {
+        effectDuration = duration;
+        underEffect = true;
+        moveSpeed = originalMoveSpeed + speedChange;
+        effect.SetActive(true);
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 
     public void AddSkill(string tag, Sprite playerSprite) // Добавление скилла

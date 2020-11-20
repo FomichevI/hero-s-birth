@@ -8,7 +8,6 @@ public class Chain : MonoBehaviour
     public float durationSkill;
     public float durationEffect;
     public float speedChange;
-    public Sprite effectSprite;
 
     private Vector3 rotation;
 
@@ -31,7 +30,7 @@ public class Chain : MonoBehaviour
     {
         if (collision.gameObject.name == "P1" || collision.gameObject.name == "P2")
         {
-            collision.gameObject.GetComponentInParent<PlayerController>().AddEffect(durationEffect, speedChange, effectSprite);
+            collision.gameObject.GetComponentInParent<PlayerController>().AddEffect(durationEffect, speedChange);
             Destroy(gameObject);
         }
     }
