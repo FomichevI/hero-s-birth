@@ -38,14 +38,14 @@ public class Spawner : MonoBehaviour
             timeToSpawnBuff -= 0.02f;
         else
         {
-            int rand = Random.Range(0, 4); // Рандомно спавним один из существующих бустов
-            if (rand == 0)
+            int rand = Random.Range(0, 100); // Рандомно спавним один из существующих бустов
+            if (rand < 55)
                 SpawnMucus();
-            else if (rand == 1)
+            else if (rand < 70)
                 SpawnChainBox();
-            else if (rand == 2)
+            else if (rand < 85)
                 SpawnLassoBox();
-            else if (rand == 3)
+            else
                 SpawnMedBox();
             timeToSpawnBuff = spawnBacteriumDelay;
         }

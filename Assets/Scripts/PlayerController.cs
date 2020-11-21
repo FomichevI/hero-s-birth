@@ -6,40 +6,29 @@ public class PlayerController : MonoBehaviour
 {
 
     public float moveSpeed = 5;
-
     public float rotationSpeed = 1;
-
-    public GameManager gameManager;
-
     public SkillsController skillsController;
-
     public GameObject effect; // объект со Sprite Renderer
 
+    private GameManager gameManager;
     private Rigidbody2D rb;
-
     private Transform headTransform;
-
     private bool ArrowControl; //Переменная для определения типа управления
-
     private Vector2 movement;
-
     private float rotationZ;
+    private float originalMoveSpeed;
 
     private bool[] checkPoints;
-
     private int lastCheckpoint;
 
     private bool underEffect;
-
     private float effectDuration;
-
-    private string currentSkillTag;
-
-    private float originalMoveSpeed;
-
-    // Start is called before the first frame update
+    private string currentSkillTag = null;
+        
     void Start()
     {
+        gameManager = Camera.main.GetComponent<GameManager>();
+
         rb = GetComponent<Rigidbody2D>();
         headTransform = transform.Find("Head").GetComponent<Transform>();
         originalMoveSpeed = moveSpeed;
@@ -56,8 +45,7 @@ public class PlayerController : MonoBehaviour
             ArrowControl = true;
         }        
         rotationZ = transform.rotation.eulerAngles.z;
-        lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта 
-        currentSkillTag = "Chain";
+        lastCheckpoint = checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта         
     }
 
     private void FixedUpdate()

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationSkill: 1
   durationEffect: 3
-  speedChange: -0.6
+  speedChange: -0.5
   rotationSpeed: 50
 --- !u!58 &7706422291299266686
 CircleCollider2D:

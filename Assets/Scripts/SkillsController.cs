@@ -36,7 +36,7 @@ public class SkillsController : MonoBehaviour
 
         if (tag == "Lasso")
         {
-            Vector2 startPos = player.position + (player.Find("Head").transform.position - player.position)*2.5f; // Определяем стартовую позицию немного спереди от персонажа
+            Vector2 startPos = player.position + (player.Find("Head").transform.position - player.position)*2f; // Определяем стартовую позицию немного спереди от персонажа
             GameObject lassoS = Instantiate(Resources.Load("Prefabs/Lasso", typeof(GameObject)), startPos, player.rotation) as GameObject;
             Vector2 direction = player.Find("Head").transform.position - player.position; // Определяем вектор направления полета лассо (куда смотрит персонаж)
             lassoS.GetComponent<LassoSkill>().SetDirectionCast(direction);
