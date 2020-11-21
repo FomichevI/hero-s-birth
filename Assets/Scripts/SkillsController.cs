@@ -12,13 +12,19 @@ public class SkillsController : MonoBehaviour
     {
         if (skillTag.Contains("ChainBox"))
         {
-            playerController.AddSkill("Chain", Resources.Load("Sprites/Biker", typeof(Sprite)) as Sprite);
+            playerController.AddSkill("Chain", Resources.Load("Sprites/Character/Biker", typeof(Sprite)) as Sprite);
         }
 
-        if (skillTag.Contains("LassoBox"))
+        else if (skillTag.Contains("LassoBox"))
         {
-            playerController.AddSkill("Lasso", Resources.Load("Sprites/Cowboy", typeof(Sprite)) as Sprite);
+            playerController.AddSkill("Lasso", Resources.Load("Sprites/Character/Cowboy", typeof(Sprite)) as Sprite);
         }
+
+        else if (skillTag.Contains("MedBox"))
+        {
+            playerController.AddSkill("Med", Resources.Load("Sprites/Character/Doctor", typeof(Sprite)) as Sprite);
+        }
+
     }
 
     public void UseSkill(string tag, Transform player) // Использование скилла, которым на данный момент владеет персонаж
@@ -34,6 +40,12 @@ public class SkillsController : MonoBehaviour
             GameObject lassoS = Instantiate(Resources.Load("Prefabs/Lasso", typeof(GameObject)), startPos, player.rotation) as GameObject;
             Vector2 direction = player.Find("Head").transform.position - player.position; // Определяем вектор направления полета лассо (куда смотрит персонаж)
             lassoS.GetComponent<LassoSkill>().SetDirectionCast(direction);
+        }
+
+        if (tag == "Med")
+        {
+            Vector2 startPos = player.position - (player.Find("Head").transform.position - player.position) * 2.5f; // Определяем стартовую позицию сзади персонажа
+            GameObject medS = Instantiate(Resources.Load("Prefabs/med", typeof(GameObject)), startPos, player.rotation) as GameObject;            
         }
     }
 }

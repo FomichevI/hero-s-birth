@@ -110,14 +110,14 @@ public class PlayerController : MonoBehaviour
         {
             skillsController.UseSkill(currentSkillTag, transform);
             currentSkillTag = null;
-            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Pers", typeof(Sprite)) as Sprite;
+            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Character/Pers", typeof(Sprite)) as Sprite;
         }
 
         if (ArrowControl && Input.GetKey(KeyCode.RightControl) && currentSkillTag != null) // Использование скилла вторым игроком
         {
             skillsController.UseSkill(currentSkillTag, transform);
             currentSkillTag = null;
-            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Pers", typeof(Sprite)) as Sprite;
+            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Character/Pers", typeof(Sprite)) as Sprite;
         }
 
         if (underEffect)

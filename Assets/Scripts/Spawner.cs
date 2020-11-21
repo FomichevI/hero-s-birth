@@ -38,14 +38,15 @@ public class Spawner : MonoBehaviour
             timeToSpawnBuff -= 0.02f;
         else
         {
-            int rand = Random.Range(0, 3); // Рандомно спавним один из существующих бустов
+            int rand = Random.Range(0, 4); // Рандомно спавним один из существующих бустов
             if (rand == 0)
                 SpawnMucus();
             else if (rand == 1)
                 SpawnChainBox();
             else if (rand == 2)
                 SpawnLassoBox();
-
+            else if (rand == 3)
+                SpawnMedBox();
             timeToSpawnBuff = spawnBacteriumDelay;
         }
     }
@@ -83,6 +84,12 @@ public class Spawner : MonoBehaviour
     {
         int rand = Random.Range(0, baffSpawnPoints.Length);
         GameObject lassoB = Instantiate(Resources.Load("Prefabs/LassoBox", typeof(GameObject)), baffSpawnPoints[rand]) as GameObject;
+    }
+
+    private void SpawnMedBox()
+    {
+        int rand = Random.Range(0, baffSpawnPoints.Length);
+        GameObject medB = Instantiate(Resources.Load("Prefabs/MedBox", typeof(GameObject)), baffSpawnPoints[rand]) as GameObject;
     }
 
 }
