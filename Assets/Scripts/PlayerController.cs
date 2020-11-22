@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gameManager = Camera.main.GetComponent<GameManager>();
+
 
         rb = GetComponent<Rigidbody2D>();
         headTransform = transform.Find("Head").GetComponent<Transform>();
@@ -166,7 +167,8 @@ public class PlayerController : MonoBehaviour
                 lastCheckpoint = checkPoints.Length - 1;
             else
                 lastCheckpoint = checkPointNumber - 1;
-            Debug.Log(transform.name + "Едет в другую сторону");
+            Debug.Log(transform.name +"Едет в другую сторону");
+
         }
         else
             lastCheckpoint = checkPointNumber;

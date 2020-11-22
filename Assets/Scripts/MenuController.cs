@@ -59,7 +59,7 @@ public class MenuController : MonoBehaviour
         Debug.Log("Getting Settings from Prefs");
         Language = PlayerPrefs.GetString(SettingsKey, Language);
         Debug.Log("Language from prefs -" + Language);
-        VolumeLevel = PlayerPrefs.GetFloat(SettingsKey, VolumeLevel);
+        VolumeLevel = PlayerPrefs.GetFloat("Volume", VolumeLevel);
         Debug.Log("Volume Level from prefs -" + VolumeLevel);
         Debug.Log("Updating settings ... ");
         Mixer.SetFloat("Volume", VolumeLevel);
@@ -86,8 +86,6 @@ public class MenuController : MonoBehaviour
             }
             i = 0;
             Debug.Log("Language is now set to Russian");
-
-
         }
     }
 
@@ -98,7 +96,7 @@ public class MenuController : MonoBehaviour
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetFloat(SettingsKey, VolumeLevel);
+        PlayerPrefs.SetFloat("Volume", VolumeLevel);
         PlayerPrefs.SetString(SettingsKey, Language);
     }
 
