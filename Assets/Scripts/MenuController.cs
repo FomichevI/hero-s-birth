@@ -104,7 +104,7 @@ public class MenuController : MonoBehaviour
 
     public void PlayMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);       
     }
 
     public void SelectMode()

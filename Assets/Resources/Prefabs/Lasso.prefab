@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b47cb6fd65dd94eb1efc8b7d72af94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durationSkill: 0.3
-  durationEffect: 1
+  durationSkill: 0.5
+  durationEffect: 1.5
   speedChange: -1
   speed: 0.3
 --- !u!70 &2407382403477165501

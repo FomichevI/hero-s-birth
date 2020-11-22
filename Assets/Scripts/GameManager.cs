@@ -10,15 +10,13 @@ public class GameManager : MonoBehaviour
     public Text counterP2Text;
     public GameObject winPanel;
 
-
-    private int counterP1 = 10;
-    private int counterP2 = 10;
+    private int counterP1;
+    private int counterP2;
+    private bool levelLoaded = false;
 
     private void Awake()
     {
-        Instantiate(Resources.Load("Prefabs/_Level_1", typeof(GameObject)), Vector3.zero, Quaternion.Euler(Vector3.zero));
-        counterP1Text.text = counterP1.ToString();
-        counterP2Text.text = counterP2.ToString();
+        RestartGame();
     }
 
 
@@ -38,7 +36,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    {       
         if (Input.GetKey(KeyCode.F))
         {
             CompleteGame("Игрок 1");
@@ -54,18 +52,29 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame() // Полностью очищаем сцену от уровня и загружаем его заново
     {
-        Destroy(GameObject.FindWithTag("Level"));
+        if (GameObject.FindWithTag("Level"))
+            Destroy(GameObject.FindWithTag("Level"));
         Instantiate(Resources.Load("Prefabs/_Level_1", typeof(GameObject)), Vector3.zero, Quaternion.Euler(Vector3.zero));
         winPanel.SetActive(false);
+        RestartCounters();
         Time.timeScale = 1; // Потом будет запускаться после обратного отсчета *********************
     }
 
     public void BackToMenu()
     {
-        Destroy(GameObject.FindWithTag("Level"));
+        if (GameObject.FindWithTag("Level"))
+            Destroy(GameObject.FindWithTag("Level"));
         winPanel.SetActive(false);
         SceneManager.LoadScene(0);
         Time.timeScale = 1; // Потом будет запускаться после обратного отсчета *********************
+    }
+
+    private void RestartCounters()
+    {
+        counterP1 = 10;
+        counterP2 = 10;
+        counterP1Text.text = counterP1.ToString();
+        counterP2Text.text = counterP2.ToString();
     }
 
 }

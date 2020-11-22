@@ -12,17 +12,17 @@ public class SkillsController : MonoBehaviour
     {
         if (skillTag.Contains("ChainBox"))
         {
-            playerController.AddSkill("Chain", Resources.Load("Sprites/Character/Biker", typeof(Sprite)) as Sprite);
+            playerController.AddSkill("Chain", "Biker");
         }
 
         else if (skillTag.Contains("LassoBox"))
         {
-            playerController.AddSkill("Lasso", Resources.Load("Sprites/Character/Cowboy", typeof(Sprite)) as Sprite);
+            playerController.AddSkill("Lasso", "");
         }
 
         else if (skillTag.Contains("MedBox"))
         {
-            playerController.AddSkill("Med", Resources.Load("Sprites/Character/Doctor", typeof(Sprite)) as Sprite);
+            playerController.AddSkill("Med", "");
         }
 
     }
