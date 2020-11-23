@@ -6,31 +6,22 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
-{
-    
-    public Text[] EnglishText;
-    public Text[] RussianText;
-
-    public Dropdown LanguageSelector;
-
+{    
     public GameObject[] Menus;
+    public GameObject[] checkBoxiPoints;
+    public Slider volumeslider;
 
-    public AudioMixer Mixer;
-
-    public Slider AudioSlider;
-
-    private float VolumeLevel;
-
-    private string SettingsKey = "ThisIsOurKey";
-
-    private string Language;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        LoadSettings();
+        SetCheckPoints();
+        volumeslider.value = PlayerPrefs.GetFloat("VolumeValue");
+        for ( int i = 1; i < Menus.Length; i++)
+        {
+            Menus[i].SetActive(false);
+        }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         int i = 0;
@@ -38,114 +29,66 @@ public class MenuController : MonoBehaviour
         {
             while (i!= Menus.Length)
             {
-                Menus[i].active = false;
+                Menus[i].SetActive(false);
                 i++;
             }
             i = 0;
-            Menus[0].active = true;
+            Menus[0].SetActive(true);
         }
         
     }
   
     public void OpenSettings()
     {
-        Menus[1].active = true;
-        Menus[0].active = false;
+        AudioManager._audioManager.PlayAudio(0);
+        Menus[1].SetActive(true);
+        Menus[0].SetActive(false);
+    }    
+
+    public void Play()
+    {
+        SceneManager.LoadScene(1);        
     }
 
-    private  void LoadSettings()
+    public void OpenCredits()
     {
-
-        Debug.Log("Getting Settings from Prefs");
-        Language = PlayerPrefs.GetString(SettingsKey, Language);
-        Debug.Log("Language from prefs -" + Language);
-        VolumeLevel = PlayerPrefs.GetFloat("Volume", VolumeLevel);
-        Debug.Log("Volume Level from prefs -" + VolumeLevel);
-        Debug.Log("Updating settings ... ");
-        Mixer.SetFloat("Volume", VolumeLevel);
-        int i = 0;
-        
-        if (Language != "rus")
-        {
-            while (i!= EnglishText.Length)
-            {
-                RussianText[i].enabled = false;
-                EnglishText[i].enabled = true;
-                i++;
-            }
-            i = 0;
-            Debug.Log("Language is now set to English");
-        }
-        if (Language == "rus")
-        {
-            while (i != RussianText.Length)
-            {
-                EnglishText[i].enabled = false;
-                RussianText[i].enabled = true;
-                i++;
-            }
-            i = 0;
-            Debug.Log("Language is now set to Russian");
-        }
+        AudioManager._audioManager.PlayAudio(0);
+        Menus[2].SetActive(true);
+        Menus[0].SetActive(false);
     }
 
-    public void UpdateSettings()
+    public void OpenDescription()
     {
-
+        AudioManager._audioManager.PlayAudio(0);
+        Menus[3].SetActive(true);
+        Menus[0].SetActive(false);
     }
 
-    public void SaveSettings()
+    public void OpenRules()
     {
-        PlayerPrefs.SetFloat("Volume", VolumeLevel);
-        PlayerPrefs.SetString(SettingsKey, Language);
+        AudioManager._audioManager.PlayAudio(0);
+        Menus[4].SetActive(true);
+        Menus[0].SetActive(false);
     }
-
-    public void PlayMenu()
-    {
-        SceneManager.LoadScene(1);       
-    }
-
-    public void SelectMode()
-    {
-
-    }
-
-    public void Credits()
-    {
-        Menus[2].active = true;
-        Menus[0].active = false;
-    }
-    public void ChangeLanguage()
-    {
-
-        Debug.Log(LanguageSelector.value);
        
-        if (LanguageSelector.value == 0)
-        {
-            Debug.Log("English is Selected");
-            Language = "eng";
-            SaveSettings();
-            LoadSettings();
-        }
-        if (LanguageSelector.value == 1)
-        {
-            Debug.Log("Russian is Selected");
-            Language = "rus";
-            SaveSettings();
-            LoadSettings();
-        }
-    }
-
-    public void SetVolume(float value)
-    {
-        Mixer.SetFloat("Volume", AudioSlider.value);
-        VolumeLevel = AudioSlider.value;
-        SaveSettings();
-    }
-
     public void Quit()
     {
+        AudioManager._audioManager.PlayAudio(0);
         Application.Quit();
+    }
+
+    private void SetCheckPoints()
+    {
+        if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+        {
+            checkBoxiPoints[0].SetActive(true);
+            checkBoxiPoints[1].SetActive(false);
+        }
+        else if(PlayerPrefs.GetString("ThisIsOurKey") == "rus")
+        {
+            checkBoxiPoints[0].SetActive(false);
+            checkBoxiPoints[1].SetActive(true);
+        }
     }
 
 }

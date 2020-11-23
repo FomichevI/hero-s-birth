@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     private Rigidbody2D rb;
     private Transform headTransform;
-    private bool ArrowControl; //Переменная для определения типа управления
+    private bool arrowControl; //Переменная для определения типа управления
     private Vector2 movement;
     private float rotationZ;
     private float originalMoveSpeed;    
@@ -32,23 +32,21 @@ public class PlayerController : MonoBehaviour
     {
         gameManager = Camera.main.GetComponent<GameManager>();
 
-
         rb = GetComponent<Rigidbody2D>();
         headTransform = transform.Find("Head").GetComponent<Transform>();
         originalMoveSpeed = moveSpeed;
-        checkPoints = new bool[3];
-        
+        checkPoints = new bool[3];        
 
-        var parentName = transform.name; //Получаем родительское имя
+        string parentName = transform.name; //Получаем родительское имя
 
         if (parentName == "P1") //Если это игрок1 то управление не на стрелках
         {
-            ArrowControl = false;
+            arrowControl = false;
             animP1 = GetComponentInChildren<Animator>();
         }
         else
         {
-            ArrowControl = true;
+            arrowControl = true;
             animP2 = GetComponentInChildren<Animator>();
         }        
         rotationZ = transform.rotation.eulerAngles.z;
@@ -58,13 +56,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!ArrowControl && Input.GetAxisRaw("HorizontalP1") != 0)
+        if (!arrowControl && Input.GetAxisRaw("HorizontalP1") != 0)
         {
             rotationZ -= Input.GetAxis("HorizontalP1") * rotationSpeed;
             rb.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
         }
 
-        if (!ArrowControl && Input.GetAxisRaw("VerticalP1") != 0)
+        if (!arrowControl && Input.GetAxisRaw("VerticalP1") != 0)
         {
             if (Input.GetAxisRaw("VerticalP1") < 0)
             {
@@ -86,13 +84,13 @@ public class PlayerController : MonoBehaviour
             animP1.speed = 0;
         }
 
-        if (ArrowControl && Input.GetAxisRaw("HorizontalP2") != 0)
+        if (arrowControl && Input.GetAxisRaw("HorizontalP2") != 0)
         {
             rotationZ -= Input.GetAxis("HorizontalP2") * rotationSpeed;
             rb.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
         }
 
-        if (ArrowControl && Input.GetAxisRaw("VerticalP2") != 0)
+        if (arrowControl && Input.GetAxisRaw("VerticalP2") != 0)
         {
             if (Input.GetAxisRaw("VerticalP2") < 0)
             {
@@ -114,7 +112,7 @@ public class PlayerController : MonoBehaviour
             animP2.speed = 0;
         }
 
-        if (!ArrowControl && Input.GetKey(KeyCode.Q) && currentSkillTag != null) // Использование скилла первым игроком
+        if (!arrowControl && Input.GetKey(KeyCode.Q) && currentSkillTag != null) // Использование скилла первым игроком
         {
             skillsController.UseSkill(currentSkillTag, transform);
             currentSkillTag = null;
@@ -122,7 +120,7 @@ public class PlayerController : MonoBehaviour
             GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load("Sprites/Character/Pers", typeof(Sprite)) as Sprite;
         }
 
-        if (ArrowControl && Input.GetKey(KeyCode.RightControl) && currentSkillTag != null) // Использование скилла вторым игроком
+        if (arrowControl && Input.GetKey(KeyCode.RightControl) && currentSkillTag != null) // Использование скилла вторым игроком
         {
             skillsController.UseSkill(currentSkillTag, transform);
             currentSkillTag = null;
@@ -166,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         if (checkPoints[2])
         {       
-            if (!ArrowControl)
+            if (!arrowControl)
                 gameManager.CompleteLapP1();
             else
                 gameManager.CompleteLapP2();
@@ -189,7 +187,7 @@ public class PlayerController : MonoBehaviour
             else
                 lastCheckpoint = checkPointNumber - 1;
             Debug.Log(transform.name +"Едет в другую сторону");
-
+            gameManager.ShowWarning(transform.name);
         }
         else
             lastCheckpoint = checkPointNumber;
@@ -221,7 +219,7 @@ public class PlayerController : MonoBehaviour
     public void AddSkill(string tag, string animName) // Добавление скилла
     {
         currentSkillTag = tag;
-        if(!ArrowControl)
+        if(!arrowControl)
             animP1.CrossFade(animName, 0);
         else
             animP2.CrossFade(animName, 0);
