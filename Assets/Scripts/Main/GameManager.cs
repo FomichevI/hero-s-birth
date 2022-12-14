@@ -1,28 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Text counterP1Text;
-    public Text counterP2Text;
-    public GameObject winPanel;
-    public float warningDuration = 2; // Продолжительность предупреждения о движении не в ту сторону
+    public Text CounterP1Text;
+    public Text CounterP2Text;
+    public GameObject WinPanel;
+    public float WarningDuration = 2; // Продолжительность предупреждения о движении не в ту сторону
     
 
-    public Text warningTextP1rus;
-    public Text warningTextP2rus;
-    public Text warningTextP1eng;
-    public Text warningTextP2eng;
+    public Text WarningTextP1rus;
+    public Text WarningTextP2rus;
+    public Text WarningTextP1eng;
+    public Text WarningTextP2eng;
 
-    private int counterP1 = 0;
-    private int counterP2 = 0;
-    private float currentWarningP1;
-    private float currentWarningP2;
-    private float timer = 3.64f;
-    private GameObject Countdown;
+    private int _counterP1 = 0;
+    private int _counterP2 = 0;
+    private float _currentWarningP1;
+    private float _currentWarningP2;
+    private float _timer = 3.64f;
+    private GameObject _countdown;
 
 
     private void Start()
@@ -30,10 +28,9 @@ public class GameManager : MonoBehaviour
         RestartGame();
     }
 
-
     private void Stop() // Отключение всего управления
     {
-        GameObject.FindGameObjectWithTag("Level").GetComponent<Spawner>().enabled = false; 
+        GameObject.FindGameObjectWithTag("Level").GetComponent<Spawner>().enabled = false;
 
         if (PlayerPrefs.HasKey("VolumeValue"))
             GameObject.FindGameObjectWithTag("Level").GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("VolumeValue");
@@ -55,9 +52,9 @@ public class GameManager : MonoBehaviour
 
     public  void CompleteLapP1()
     {
-        counterP1 += 1;
-        counterP1Text.text = counterP1.ToString() + "/10";
-        if (counterP1 == 10)
+        _counterP1 += 1;
+        CounterP1Text.text = _counterP1.ToString() + "/10";
+        if (_counterP1 == 10)
         {
             if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
             {
@@ -72,9 +69,9 @@ public class GameManager : MonoBehaviour
 
     public  void CompleteLapP2()
     {
-        counterP2 += 1;
-        counterP2Text.text = counterP2.ToString() + "/10";
-        if (counterP2 == 10)
+        _counterP2 += 1;
+        CounterP2Text.text = _counterP2.ToString() + "/10";
+        if (_counterP2 == 10)
         {
             if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
             {
@@ -89,69 +86,68 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(currentWarningP1 > 0)
+        if(_currentWarningP1 > 0)
         {
-            if (currentWarningP1 % 0.5f > 0.25f)
+            if (_currentWarningP1 % 0.5f > 0.25f)
             {
-                warningTextP1rus.color = Color.red;
-                warningTextP1eng.color = Color.red;
+                WarningTextP1rus.color = Color.red;
+                WarningTextP1eng.color = Color.red;
             }
             else
             {
-                warningTextP1rus.color = Color.black;
-                warningTextP1eng.color = Color.black;
+                WarningTextP1rus.color = Color.black;
+                WarningTextP1eng.color = Color.black;
             }
-            currentWarningP1 -= 0.02f;       
+            _currentWarningP1 -= 0.02f;       
         }
         else
         {
-            warningTextP1rus.enabled = false;
-            warningTextP1eng.enabled = false;
+            WarningTextP1rus.enabled = false;
+            WarningTextP1eng.enabled = false;
         }
 
-        if (currentWarningP2 > 0)
+        if (_currentWarningP2 > 0)
         {
-            if (currentWarningP2 % 0.5f > 0.25f)
+            if (_currentWarningP2 % 0.5f > 0.25f)
             {
-                warningTextP2rus.color = Color.red;
-                warningTextP2eng.color = Color.red;
+                WarningTextP2rus.color = Color.red;
+                WarningTextP2eng.color = Color.red;
             }
             else
             {
-                warningTextP2rus.color = Color.black;
-                warningTextP2eng.color = Color.black;
+                WarningTextP2rus.color = Color.black;
+                WarningTextP2eng.color = Color.black;
             }
-            currentWarningP2 -= 0.02f;
+            _currentWarningP2 -= 0.02f;
         }
         else
         {
-            warningTextP2rus.enabled = false;
-            warningTextP2eng.enabled = false;
+            WarningTextP2rus.enabled = false;
+            WarningTextP2eng.enabled = false;
         }
 
-        if (timer > 0)
+        if (_timer > 0)
         {
-            if (timer%1 < 0.67f && timer % 1 > 0.65f)
+            if (_timer%1 < 0.67f && _timer % 1 > 0.65f)
                 AudioManager._audioManager.PlayAudio(7);
-            timer -= 0.02f;
+            _timer -= 0.02f;
         }
         else
-            Countdown.SetActive(false);
+            _countdown.SetActive(false);
     }
-
 
     public void CompleteGame(string playerName)
     {
         Time.timeScale = 0;
-        winPanel.SetActive(true);
+        WinPanel.SetActive(true);
 
         if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
         {
-            winPanel.GetComponentInChildren<Text>().text = playerName + "\nWon!";
+            WinPanel.GetComponentInChildren<Text>().text = playerName + "\nWon!";
         }
         if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")
         {
-            winPanel.GetComponentInChildren<Text>().text = playerName + "\nПобедил!";
+            WinPanel.GetComponentInChildren<Text>().text = playerName + "\nПобедил!";
         }
 
     }
@@ -161,9 +157,9 @@ public class GameManager : MonoBehaviour
         if(GameObject.FindWithTag("Level"))
             Destroy(GameObject.FindWithTag("Level"));
         Instantiate(Resources.Load("Prefabs/_Level_1", typeof(GameObject)), Vector3.zero, Quaternion.Euler(Vector3.zero));
-        Countdown = GameObject.Find("Countdown");
-        timer = 3.64f;
-        winPanel.SetActive(false);
+        _countdown = GameObject.Find("Countdown");
+        _timer = 3.64f;
+        WinPanel.SetActive(false);
         RestartCounters();
         Time.timeScale = 1;
         Stop();
@@ -173,17 +169,17 @@ public class GameManager : MonoBehaviour
     public void BackToMenu()
     {
         Destroy(GameObject.FindWithTag("Level"));
-        winPanel.SetActive(false);
+        WinPanel.SetActive(false);
         SceneManager.LoadScene(0);
         Time.timeScale = 1;
     }
 
     private void RestartCounters()
     {
-        counterP1 = 0;
-        counterP2 = 0;
-        counterP1Text.text = counterP1.ToString() + "/10";
-        counterP2Text.text = counterP2.ToString() + "/10";
+        _counterP1 = 0;
+        _counterP2 = 0;
+        CounterP1Text.text = _counterP1.ToString() + "/10";
+        CounterP2Text.text = _counterP2.ToString() + "/10";
     }
 
     public void ShowWarning(string name)
@@ -191,20 +187,19 @@ public class GameManager : MonoBehaviour
         if (name == "P1")
         {
             if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")            
-                warningTextP1rus.enabled = true;
+                WarningTextP1rus.enabled = true;
             else if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
-                warningTextP1eng.enabled = true;
-            currentWarningP1 = warningDuration;            
+                WarningTextP1eng.enabled = true;
+            _currentWarningP1 = WarningDuration;            
         }
         else
         {
             if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")
-                warningTextP2rus.enabled = true;
+                WarningTextP2rus.enabled = true;
             else if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
-                warningTextP2eng.enabled = true;
-            currentWarningP2 = warningDuration;
+                WarningTextP2eng.enabled = true;
+            _currentWarningP2 = WarningDuration;
         }
 
     }
-
 }

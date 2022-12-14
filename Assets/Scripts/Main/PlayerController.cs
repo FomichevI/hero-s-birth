@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
         string parentName = transform.name; //Получаем родительское имя
 
-        if (parentName == "P1") //Если это игрок1 то управление не на стрелках
+        if (parentName == "Player1") //Если это игрок1 то управление не на стрелках
         {
             arrowControl = false;
             animP1 = GetComponentInChildren<Animator>();

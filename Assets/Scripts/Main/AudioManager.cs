@@ -9,7 +9,11 @@ public class AudioManager : MonoBehaviour
     [Header("4 - лассо 5 - антибиотик 6 - бафф 7 - удар")]
     [Header("0 - клик 1 - ускорение 2 - бактерия 3 - цепь")]
     
-    [SerializeField] private AudioClip[] audioClips;
+    [SerializeField] private AudioClip _clickAc;
+    [SerializeField] private AudioClip _speedUpAc;
+    [SerializeField] private AudioClip _bacteriumAc;
+    [SerializeField] private AudioClip _chainAc;
+    [SerializeField] private AudioClip _bacteriumAc;
 
     private void Awake()
     {
@@ -35,8 +39,8 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void PlayAudio(int numClip)
     {
-        if (_audioManager.audioClips[numClip])
-            _audioManager.GetComponent<AudioSource>().PlayOneShot(_audioManager.audioClips[numClip]);
+        if (_audioManager._clickAc[numClip])
+            _audioManager.GetComponent<AudioSource>().PlayOneShot(_audioManager._clickAc[numClip]);
     }
         
     public void SetVolue(float vol)
