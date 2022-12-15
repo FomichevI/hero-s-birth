@@ -1,20 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public float durationSkill;
-    public float durationEffect;
-    public float speedChange;
-
+    [SerializeField] protected float _durationSkill;
+    [SerializeField] private float _durationEffect;
+    [SerializeField] private float _speedChange;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "P1" || collision.gameObject.name == "P2")
+        if (collision.gameObject.name == "Player1" || collision.gameObject.name == "Player2")
         {
-            AudioManager._audioManager.PlayAudio(7);
-            collision.gameObject.GetComponentInParent<PlayerController>().AddEffect(durationEffect, speedChange);
+            AudioManager.S.PlaySound(Sounds.Hit);
+            collision.gameObject.GetComponentInParent<PlayerController>().AddEffect(_durationEffect, _speedChange);
             Destroy(gameObject);
         }
     }

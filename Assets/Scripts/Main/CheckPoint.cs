@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class CheckPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "P1")
+        if(collision.gameObject.name == "Player1")
         {
             if (gameObject.name == "CheckPoint0")
                 collision.gameObject.GetComponent<PlayerController>().CheckPointComplete(0);
@@ -20,7 +18,7 @@ public class CheckPoint : MonoBehaviour
             else if(gameObject.name == "Start1")
                 collision.gameObject.GetComponent<PlayerController>().FinishComplete();
         }
-        else if (collision.gameObject.name == "P2")
+        else if (collision.gameObject.name == "Player2")
         {
             if (gameObject.name == "CheckPoint0")
                 collision.gameObject.GetComponent<PlayerController>().CheckPointComplete(2);

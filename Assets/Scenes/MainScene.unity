@@ -2187,16 +2187,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cd0d0bc5492ef45ae68dc6ee960b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips:
-  - {fileID: 8300000, guid: 752e2b0e59695fc4b896a2dbfc91a26a, type: 3}
-  - {fileID: 8300000, guid: 141b7cece0c3c7548883b0c1cd463617, type: 3}
-  - {fileID: 8300000, guid: 413f0a838b274684297e2da39a2b12dc, type: 3}
-  - {fileID: 8300000, guid: a74fe2c5c6d242a43b54d2ea58089a0b, type: 3}
-  - {fileID: 8300000, guid: 48b3dc8da595a604aa433a95b4c95767, type: 3}
-  - {fileID: 8300000, guid: 7e7564c336bb68f45985c2ee00b6af9b, type: 3}
-  - {fileID: 8300000, guid: 311d612015111674cb95100a96f6044e, type: 3}
-  - {fileID: 8300000, guid: 357939f1d1a6e7d4293e7d92a5e2e7ab, type: 3}
-  - {fileID: 8300000, guid: 0d8eb20c1c5ac7946a3dfda859d16701, type: 3}
+  _clickAc: {fileID: 8300000, guid: 752e2b0e59695fc4b896a2dbfc91a26a, type: 3}
+  _speedUpAc: {fileID: 8300000, guid: 141b7cece0c3c7548883b0c1cd463617, type: 3}
+  _bacteriumAc: {fileID: 8300000, guid: 413f0a838b274684297e2da39a2b12dc, type: 3}
+  _chainAc: {fileID: 8300000, guid: a74fe2c5c6d242a43b54d2ea58089a0b, type: 3}
+  _lassoAc: {fileID: 8300000, guid: 48b3dc8da595a604aa433a95b4c95767, type: 3}
+  _antibioticAc: {fileID: 8300000, guid: 7e7564c336bb68f45985c2ee00b6af9b, type: 3}
+  _buffAc: {fileID: 8300000, guid: 311d612015111674cb95100a96f6044e, type: 3}
+  _hitAc: {fileID: 8300000, guid: 357939f1d1a6e7d4293e7d92a5e2e7ab, type: 3}
+  _themeAc: {fileID: 8300000, guid: 0d8eb20c1c5ac7946a3dfda859d16701, type: 3}
 --- !u!114 &1994354842
 MonoBehaviour:
   m_ObjectHideFlags: 0

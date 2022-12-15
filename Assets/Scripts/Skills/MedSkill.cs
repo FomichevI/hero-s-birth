@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class MedSkill : Skill
+﻿public class MedSkill : Skill
 {
     private void FixedUpdate()
     {
-        if (durationSkill > 0)
+        if (_durationSkill > 0)
         {
-            durationSkill -= 0.02f;
+            _durationSkill -= 0.02f;
         }
         else
         {

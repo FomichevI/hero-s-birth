@@ -1,94 +1,92 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
-{    
-    public GameObject[] Menus;
-    public GameObject[] checkBoxiPoints;
-    public Slider volumeslider;
+{
+    [SerializeField] private GameObject _mainMenu;
+    [SerializeField] private GameObject _settingsPanel;
+    [SerializeField] private GameObject _creditsPanel;
+    [SerializeField] private GameObject _descriptionPanel;
+    [SerializeField] private GameObject _controllingPanel;
+    [SerializeField] private GameObject _engCheckBoxPoint;
+    [SerializeField] private GameObject _rusCheckBoxPoint;
+    [SerializeField] private Slider _volumeslider;
 
     private void Start()
     {
         SetCheckPoints();
-        volumeslider.value = PlayerPrefs.GetFloat("VolumeValue");
-        for ( int i = 1; i < Menus.Length; i++)
-        {
-            Menus[i].SetActive(false);
-        }
+        _volumeslider.value = PlayerPrefs.GetFloat("VolumeValue");
+        _settingsPanel.SetActive(false);
+        _creditsPanel.SetActive(false);
+        _descriptionPanel.SetActive(false);
+        _controllingPanel.SetActive(false);
     }
 
 
-    void Update()
+    private void Update()
     {
         int i = 0;
-        if (Input.GetKeyDown("escape") && Menus[0].active == false)
+        if (Input.GetKeyDown("escape"))
         {
-            while (i!= Menus.Length)
-            {
-                Menus[i].SetActive(false);
-                i++;
-            }
-            i = 0;
-            Menus[0].SetActive(true);
+            _settingsPanel.SetActive(false);
+            _creditsPanel.SetActive(false);
+            _descriptionPanel.SetActive(false);
+            _controllingPanel.SetActive(false);
+            _mainMenu.SetActive(true);
         }
-        
     }
-  
+
     public void OpenSettings()
     {
-        AudioManager._audioManager.PlayAudio(0);
-        Menus[1].SetActive(true);
-        Menus[0].SetActive(false);
-    }    
+        AudioManager.S.PlaySound(Sounds.Click);
+        _settingsPanel.SetActive(true);
+        _mainMenu.SetActive(false);
+    }
 
     public void Play()
     {
-        SceneManager.LoadScene(1);        
+        SceneManager.LoadScene(1);
     }
 
     public void OpenCredits()
     {
-        AudioManager._audioManager.PlayAudio(0);
-        Menus[2].SetActive(true);
-        Menus[0].SetActive(false);
+        AudioManager.S.PlaySound(Sounds.Click);
+        _creditsPanel.SetActive(true);
+        _mainMenu.SetActive(false);
     }
 
     public void OpenDescription()
     {
-        AudioManager._audioManager.PlayAudio(0);
-        Menus[3].SetActive(true);
-        Menus[0].SetActive(false);
+        AudioManager.S.PlaySound(Sounds.Click);
+        _descriptionPanel.SetActive(true);
+        _mainMenu.SetActive(false);
     }
 
     public void OpenRules()
     {
-        AudioManager._audioManager.PlayAudio(0);
-        Menus[4].SetActive(true);
-        Menus[0].SetActive(false);
+        AudioManager.S.PlaySound(Sounds.Click);
+        _controllingPanel.SetActive(true);
+        _mainMenu.SetActive(false);
     }
-       
+
     public void Quit()
     {
-        AudioManager._audioManager.PlayAudio(0);
+        AudioManager.S.PlaySound(Sounds.Click);
         Application.Quit();
     }
 
     private void SetCheckPoints()
     {
-        if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+        if (PlayerPrefs.GetString("Language") == "eng")
         {
-            checkBoxiPoints[0].SetActive(true);
-            checkBoxiPoints[1].SetActive(false);
+            _engCheckBoxPoint.SetActive(true);
+            _rusCheckBoxPoint.SetActive(false);
         }
-        else if(PlayerPrefs.GetString("ThisIsOurKey") == "rus")
+        else if (PlayerPrefs.GetString("Language") == "rus")
         {
-            checkBoxiPoints[0].SetActive(false);
-            checkBoxiPoints[1].SetActive(true);
+            _engCheckBoxPoint.SetActive(false);
+            _rusCheckBoxPoint.SetActive(true);
         }
     }
-
 }

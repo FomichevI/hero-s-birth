@@ -1,21 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LassoSkill : Skill
 {
-    public float speed;
-
-    private Vector2 directionCast;
-    private Vector2 pos;
+    [SerializeField] private float _speed = 0.3f;
+    private Vector2 _directionCast;
+    private Vector2 _pos;
 
     private void FixedUpdate()
     {
-        if (durationSkill > 0)
+        if (_durationSkill > 0)
         {
-            durationSkill -= 0.02f;
-            pos += directionCast * speed;
-            transform.position = pos;
+            _durationSkill -= 0.02f;
+            _pos += _directionCast * _speed;
+            transform.position = _pos;
         }
         else
         {
@@ -25,8 +22,7 @@ public class LassoSkill : Skill
 
     public void SetDirectionCast(Vector2 direction)
     {
-        directionCast = direction;
-        pos = transform.position;
+        _directionCast = direction;
+        _pos = transform.position;
     }
-
 }

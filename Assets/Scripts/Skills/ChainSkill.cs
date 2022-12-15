@@ -1,27 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChainSkill : Skill
 {
-    public float rotationSpeed;
-    
-
-    private Vector3 rotation;
+    [SerializeField] private float _rotationSpeed = 50;   
+    private Vector3 _rotation;
 
     private void FixedUpdate()
     {
-        if(durationSkill > 0)
+        if(_durationSkill > 0)
         {
-            durationSkill -= 0.02f;
-            rotation.z += rotationSpeed * Time.fixedDeltaTime;
-            transform.rotation = Quaternion.Euler(rotation);
+            _durationSkill -= 0.02f;
+            _rotation.z += _rotationSpeed * Time.fixedDeltaTime;
+            transform.rotation = Quaternion.Euler(_rotation);
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
-
 }

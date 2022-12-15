@@ -56,11 +56,11 @@ public class GameManager : MonoBehaviour
         CounterP1Text.text = _counterP1.ToString() + "/10";
         if (_counterP1 == 10)
         {
-            if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+            if (PlayerPrefs.GetString("Language") == "eng")
             {
                 CompleteGame("Player 1");
             }
-            else if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")
+            else if (PlayerPrefs.GetString("Language") == "rus")
             {
                 CompleteGame("Игрок 1");
             }
@@ -73,11 +73,11 @@ public class GameManager : MonoBehaviour
         CounterP2Text.text = _counterP2.ToString() + "/10";
         if (_counterP2 == 10)
         {
-            if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+            if (PlayerPrefs.GetString("Language") == "eng")
             {
                 CompleteGame("Player 2");
             }
-            else if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")
+            else if (PlayerPrefs.GetString("Language") == "rus")
             {
                 CompleteGame("Игрок 2");
             }
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         if (_timer > 0)
         {
             if (_timer%1 < 0.67f && _timer % 1 > 0.65f)
-                AudioManager._audioManager.PlayAudio(7);
+                AudioManager.S.PlaySound(Sounds.Hit);
             _timer -= 0.02f;
         }
         else
@@ -141,11 +141,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         WinPanel.SetActive(true);
 
-        if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+        if (PlayerPrefs.GetString("Language") == "eng")
         {
             WinPanel.GetComponentInChildren<Text>().text = playerName + "\nWon!";
         }
-        if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")
+        if (PlayerPrefs.GetString("Language") == "rus")
         {
             WinPanel.GetComponentInChildren<Text>().text = playerName + "\nПобедил!";
         }
@@ -184,22 +184,21 @@ public class GameManager : MonoBehaviour
 
     public void ShowWarning(string name)
     {
-        if (name == "P1")
+        if (name == "Player1")
         {
-            if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")            
+            if (PlayerPrefs.GetString("Language") == "rus")            
                 WarningTextP1rus.enabled = true;
-            else if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+            else if (PlayerPrefs.GetString("Language") == "eng")
                 WarningTextP1eng.enabled = true;
             _currentWarningP1 = WarningDuration;            
         }
         else
         {
-            if (PlayerPrefs.GetString("ThisIsOurKey") == "rus")
+            if (PlayerPrefs.GetString("Language") == "rus")
                 WarningTextP2rus.enabled = true;
-            else if (PlayerPrefs.GetString("ThisIsOurKey") == "eng")
+            else if (PlayerPrefs.GetString("Language") == "eng")
                 WarningTextP2eng.enabled = true;
             _currentWarningP2 = WarningDuration;
         }
-
     }
 }

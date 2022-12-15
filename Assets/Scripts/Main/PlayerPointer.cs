@@ -1,43 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerPointer : MonoBehaviour
 {
-    public Transform player;    
-    public float showDelay;
-    public float showDuration;
-    public float upperPlayer = 20;
+    [SerializeField] private Transform _player;
+    [SerializeField] private float _showDelay = 12; //Задержка между подсказками
+    [SerializeField] private float _showDuration = 2; //Продолжительность подсказки
+    [SerializeField] private float _upperPlayer = 15; //Отступ от игрока вверх
 
-    private float currentTime;
-    private Vector2 pos;
-    private SpriteRenderer spriteRenderer;
-
+    private float _currentTime;
+    private Vector2 _pos;
+    private SpriteRenderer _spriteRenderer;
 
     void Start()
     {
-        currentTime = 0;
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _currentTime = 0;
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
     {
-        pos.x = player.position.x;
-        pos.y = player.position.y + upperPlayer;
-        gameObject.transform.position = pos;
+        _pos.x = _player.position.x;
+        _pos.y = _player.position.y + _upperPlayer;
+        gameObject.transform.position = _pos;
 
-        if (currentTime % showDelay < showDuration)
+        if (_currentTime % _showDelay < _showDuration)
         {
-            spriteRenderer.color = Color.white;
+            _spriteRenderer.color = Color.white;
         }
         else
         {
-            spriteRenderer.color = Color.clear;
+            _spriteRenderer.color = Color.clear;
         }
 
-        if (currentTime == float.MaxValue)
-            currentTime = 0;
-        currentTime += 0.02f;
+        if (_currentTime == float.MaxValue)
+            _currentTime = 0;
+        _currentTime += 0.02f;
     }
-
 }

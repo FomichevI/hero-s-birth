@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LanguageManager : MonoBehaviour
 {
-    private List <Text> engListText;
-    private List <Text> rusListText;
-    private string languageSettings = "ThisIsOurKey";
-    private string language;
+    private List <Text> _engListText;
+    private List <Text> _rusListText;
+    private string _languageSettings = "Language"; // Название переменной в PlayerPrefs
+    private string _language; // Значение переменной из PlayerPrefs
 
     private void Awake()
     {
@@ -18,64 +17,65 @@ public class LanguageManager : MonoBehaviour
 
     private void FindTexts()
     {
-        engListText = new List<Text>();
-        rusListText = new List<Text>();
-        Text[] list = GameObject.FindObjectsOfType<Text>();
+        _engListText = new List<Text>();
+        _rusListText = new List<Text>();
+        Text[] list = FindObjectsOfType<Text>();
         foreach(Text text in list)
         {
             if (text.gameObject.name.Contains("_Text_eng"))            
-                engListText.Add(text);            
+                _engListText.Add(text);            
             else if (text.gameObject.name.Contains("_Text_rus"))
-                rusListText.Add(text);
+                _rusListText.Add(text);
         }
     }
 
 
     private void LoadSettings()
     {
-        if (PlayerPrefs.HasKey(languageSettings))
-            language = PlayerPrefs.GetString(languageSettings);
+        if (PlayerPrefs.HasKey(_languageSettings))
+            _language = PlayerPrefs.GetString(_languageSettings);
         else
         {
-            language = "eng";
-            PlayerPrefs.SetString(languageSettings, language);
+            _language = "eng";
+            PlayerPrefs.SetString(_languageSettings, _language);
         }
 
-        if (language == "eng")
+        if (_language == "eng")
         {
-            for (int i =0; i < rusListText.Count; i++)
+            for (int i =0; i < _rusListText.Count; i++)
             {
-                rusListText[i].enabled = false;
-                engListText[i].enabled = true;                
+                _rusListText[i].enabled = false;
+                _engListText[i].enabled = true;                
             }
             Debug.Log("Language is now set to English");
         }
-        if (language == "rus")
+        if (_language == "rus")
         {
-            for (int i = 0; i < rusListText.Count; i++)
+            for (int i = 0; i < _rusListText.Count; i++)
             {
-                engListText[i].enabled = false;
-                rusListText[i].enabled = true;
+                _engListText[i].enabled = false;
+                _rusListText[i].enabled = true;
             }
             Debug.Log("Language is now set to Russian");
         }
     }
 
-    public void ChangeLanguage(int value)
+    public void ChangeLanguage()
     {
-        AudioManager._audioManager.PlayAudio(0);
-        if (value == 0)
+        AudioManager.S.PlaySound(Sounds.Click);
+
+        if (_language != "eng")
         {
-            Debug.Log("English is Selected");
-            language = "eng";
-            PlayerPrefs.SetString(languageSettings, language);
+            Debug.Log("English is selected");
+            _language = "eng";
+            PlayerPrefs.SetString(_languageSettings, _language);
             LoadSettings();
         }
-        if (value == 1)
+        else if (_language != "rus")
         {
-            Debug.Log("Russian is Selected");
-            language = "rus";
-            PlayerPrefs.SetString(languageSettings, language);
+            Debug.Log("Russian is selected");
+            _language = "rus";
+            PlayerPrefs.SetString(_languageSettings, _language);
             LoadSettings();
         }
     }
