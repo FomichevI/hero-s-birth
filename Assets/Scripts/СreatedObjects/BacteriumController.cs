@@ -17,7 +17,7 @@ public class BacteriumController : Boost
     private void FixedUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, finishTransform.position, _moveSpeed);
-        if ((transform.position - finishTransform.position).magnitude<= _maxRadius)
+        if ((transform.position - finishTransform.position).magnitude <= _maxRadius)
             Destroy(gameObject);
     }
 

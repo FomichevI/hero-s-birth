@@ -17,7 +17,7 @@ public class LassoSkill : Skill
         else
         {
             Destroy(gameObject);
-        }        
+        }
     }
 
     public void SetDirectionCast(Vector2 direction)

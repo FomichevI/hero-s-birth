@@ -11,5 +11,5 @@ public class Boost : MonoBehaviour
             _lifeTime -= 0.02f;
         else
             Destroy(gameObject);
-    }  
+    }
 }

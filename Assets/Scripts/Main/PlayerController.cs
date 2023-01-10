@@ -11,18 +11,18 @@ public class PlayerController : MonoBehaviour
     private Transform _headTransform;
     private bool _arrowControl; //Переменная для определения типа управления
     private Vector2 _movement; //Направление движения
-    private float _rotationZ;
-    private float _originalMoveSpeed;    
+    private float _rotationZ; //Скорость вращения
+    private float _originalMoveSpeed;
     private Animator _animator;
 
     private bool[] _checkPoints;
     private int _lastCheckpoint;
-    private bool _isMoving = false;    
+    private bool _isMoving = false;
 
     private bool _underEffect;
     private float _effectDuration;
     private string _currentSkillTag = null;
-        
+
     void Start()
     {
         _gameManager = Camera.main.GetComponent<GameManager>();
@@ -30,18 +30,18 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _headTransform = transform.Find("Head").GetComponent<Transform>();
         _originalMoveSpeed = _moveSpeed;
-        _checkPoints = new bool[3];        
+        _checkPoints = new bool[3];
 
         string parentName = transform.name; //Получаем родительское имя
 
         _animator = GetComponentInChildren<Animator>();
         if (parentName == "Player1") //Если это игрок1 то управление не на стрелках        
-            _arrowControl = false;        
-        else        
+            _arrowControl = false;
+        else
             _arrowControl = true;
-            
+
         _rotationZ = transform.rotation.eulerAngles.z;
-        _lastCheckpoint = _checkPoints.Length - 1; // В начале игры выставляем индикатор последнего чекпоинта             
+        _lastCheckpoint = _checkPoints.Length - 1; //В начале игры выставляем индикатор последнего чекпоинта             
     }
 
     private void Update()
@@ -135,11 +135,11 @@ public class PlayerController : MonoBehaviour
                 _effect.SetActive(false);
                 GetComponentInChildren<SpriteRenderer>().color = Color.white;
             }
-        }    
-    }    
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
-    {        
+    {
         if (other.gameObject.tag == "Bacterium" || other.gameObject.tag == "Mucus")
         {
             if (other.gameObject.GetComponent<BoostWithEffect>())
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
             else if (other.gameObject.GetComponent<BacteriumController>())
                 other.gameObject.GetComponent<BacteriumController>().UseBoost(this);
         }
-        else if(other.gameObject.tag == "SkillBox")
+        else if (other.gameObject.tag == "SkillBox")
         {
             _skillsController.SetSkill(other.gameObject.name, this);
             Destroy(other.gameObject);
@@ -157,18 +157,18 @@ public class PlayerController : MonoBehaviour
     public void FinishComplete()
     {
         if (_checkPoints[2])
-        {       
+        {
             if (!_arrowControl)
                 _gameManager.CompleteLapP1();
             else
                 _gameManager.CompleteLapP2();
             ClearCheckPoints(); // Приравниваем все чекпоинты к false  
-        }         
+        }
     }
 
     public void CheckPointComplete(int checkPointNumber)
     {
-        if (checkPointNumber == 0)        
+        if (checkPointNumber == 0)
             _checkPoints[checkPointNumber] = true;
         else if (_checkPoints[checkPointNumber - 1])
             _checkPoints[checkPointNumber] = true;
@@ -208,14 +208,14 @@ public class PlayerController : MonoBehaviour
     {
         _effectDuration = duration;
         _underEffect = true;
-        _moveSpeed = _originalMoveSpeed + speedChange;        
+        _moveSpeed = _originalMoveSpeed + speedChange;
         GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 
     public void AddSkill(string tag, string animName) // Добавление скилла
     {
         _currentSkillTag = tag;
-        if(!_arrowControl)
+        if (!_arrowControl)
             _animator.CrossFade(animName, 0);
         else
             _animator.CrossFade(animName, 0);

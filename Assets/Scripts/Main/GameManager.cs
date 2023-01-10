@@ -7,8 +7,7 @@ public class GameManager : MonoBehaviour
     public Text CounterP1Text;
     public Text CounterP2Text;
     public GameObject WinPanel;
-    public float WarningDuration = 2; // Продолжительность предупреждения о движении не в ту сторону
-    
+    public float WarningDuration = 2; // Продолжительность предупреждения о движении не в ту сторону    
 
     public Text WarningTextP1rus;
     public Text WarningTextP2rus;
@@ -19,9 +18,7 @@ public class GameManager : MonoBehaviour
     private int _counterP2 = 0;
     private float _currentWarningP1;
     private float _currentWarningP2;
-    private float _timer = 3.64f;
     private GameObject _countdown;
-
 
     private void Start()
     {
@@ -44,49 +41,32 @@ public class GameManager : MonoBehaviour
 
     private void Go() // Включение управления
     {
-        GameObject.FindGameObjectWithTag("Level").GetComponent<Spawner>().enabled = true; 
+        GameObject.FindGameObjectWithTag("Level").GetComponent<Spawner>().enabled = true;
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject go in gos)
             go.GetComponent<PlayerController>().enabled = true;
+        _countdown.SetActive(false);
     }
 
-    public  void CompleteLapP1()
+    public void CompleteLapP1()
     {
         _counterP1 += 1;
         CounterP1Text.text = _counterP1.ToString() + "/10";
-        if (_counterP1 == 10)
-        {
-            if (PlayerPrefs.GetString("Language") == "eng")
-            {
-                CompleteGame("Player 1");
-            }
-            else if (PlayerPrefs.GetString("Language") == "rus")
-            {
-                CompleteGame("Игрок 1");
-            }
-        }
+        if (_counterP1 == 10)// Если игрок прошел 10 кругов
+            CompleteGame(GetComponent<LanguageManager>().GetPlayerName(Players.Player1));
     }
 
-    public  void CompleteLapP2()
+    public void CompleteLapP2()
     {
         _counterP2 += 1;
         CounterP2Text.text = _counterP2.ToString() + "/10";
         if (_counterP2 == 10)
-        {
-            if (PlayerPrefs.GetString("Language") == "eng")
-            {
-                CompleteGame("Player 2");
-            }
-            else if (PlayerPrefs.GetString("Language") == "rus")
-            {
-                CompleteGame("Игрок 2");
-            }
-        }        
+            CompleteGame(GetComponent<LanguageManager>().GetPlayerName(Players.Player2));
     }
 
     private void FixedUpdate()
     {
-        if(_currentWarningP1 > 0)
+        if (_currentWarningP1 > 0)
         {
             if (_currentWarningP1 % 0.5f > 0.25f)
             {
@@ -98,7 +78,7 @@ public class GameManager : MonoBehaviour
                 WarningTextP1rus.color = Color.black;
                 WarningTextP1eng.color = Color.black;
             }
-            _currentWarningP1 -= 0.02f;       
+            _currentWarningP1 -= 0.02f;
         }
         else
         {
@@ -125,15 +105,6 @@ public class GameManager : MonoBehaviour
             WarningTextP2rus.enabled = false;
             WarningTextP2eng.enabled = false;
         }
-
-        if (_timer > 0)
-        {
-            if (_timer%1 < 0.67f && _timer % 1 > 0.65f)
-                AudioManager.S.PlaySound(Sounds.Hit);
-            _timer -= 0.02f;
-        }
-        else
-            _countdown.SetActive(false);
     }
 
     public void CompleteGame(string playerName)
@@ -154,11 +125,10 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame() // Полностью очищаем сцену от уровня и загружаем его заново
     {
-        if(GameObject.FindWithTag("Level"))
+        if (GameObject.FindWithTag("Level"))
             Destroy(GameObject.FindWithTag("Level"));
         Instantiate(Resources.Load("Prefabs/_Level_1", typeof(GameObject)), Vector3.zero, Quaternion.Euler(Vector3.zero));
         _countdown = GameObject.Find("Countdown");
-        _timer = 3.64f;
         WinPanel.SetActive(false);
         RestartCounters();
         Time.timeScale = 1;
@@ -186,11 +156,11 @@ public class GameManager : MonoBehaviour
     {
         if (name == "Player1")
         {
-            if (PlayerPrefs.GetString("Language") == "rus")            
+            if (PlayerPrefs.GetString("Language") == "rus")
                 WarningTextP1rus.enabled = true;
             else if (PlayerPrefs.GetString("Language") == "eng")
                 WarningTextP1eng.enabled = true;
-            _currentWarningP1 = WarningDuration;            
+            _currentWarningP1 = WarningDuration;
         }
         else
         {
